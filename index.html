@@ -1,900 +1,526 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="scroll-smooth selection:bg-[#D4AF37]/30 selection:text-white">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سما زرین | Sama Zarrin Luxury Jewelry</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Sama Zarrin - Timeless High Jewelry and Pure 18k Gold Masterpieces. سما زرین، تولید کننده لوکس‌ترین جواهرات و شاهکارهای طلای ۱۸ عیار.">
-    <meta property="og:title" content="Sama Zarrin | High Jewelry Masterpieces">
-    <meta property="og:description" content="Experience royal craftsmanship. Explore our exclusive high jewelry collection.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=80">
-    <meta name="twitter:card" content="summary_large_image">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سما زرین | Sama Zarrin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js"></script>
+<style>
+:root{
+  --black:#0a0908;
+  --charcoal:#17140f;
+  --charcoal-2:#211c15;
+  --gold:#c9a24b;
+  --gold-bright:#e8cd8a;
+  --champagne:#e8d9b5;
+  --ivory:#f6f2e9;
+  --bronze:#8a6d3a;
+  --line: rgba(201,162,75,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--black);color:var(--ivory);overflow-x:hidden;}
+body{font-family:'Vazirmatn',sans-serif;font-weight:300;}
+body.lang-en{font-family:'Jost',sans-serif;}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
+body.lang-en h1, body.lang-en h2, body.lang-en h3, body.lang-en .serif{font-family:'Cormorant Garamond',serif;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+::selection{background:var(--gold);color:var(--black);}
 
-    <!-- Google Fonts for Luxury Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+}
 
-    <!-- CSS CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Animation and State Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+/* ---------- Loading screen ---------- */
+#loader{
+  position:fixed;inset:0;background:var(--black);z-index:9999;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;
+}
+#loader .mark{
+  font-family:'Cormorant Garamond',serif;font-size:15vw;font-weight:300;letter-spacing:0.05em;color:var(--gold);
+  opacity:0.9;
+}
+#loader .thread{
+  width:220px;height:1px;background:var(--line);position:relative;overflow:hidden;
+}
+#loader .thread i{
+  position:absolute;inset:0;width:0%;background:var(--gold);
+  box-shadow:0 0 8px var(--gold);
+}
+#loader .pct{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--bronze);text-transform:uppercase;}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: {
-                            light: '#EEDAA2',
-                            DEFAULT: '#D4AF37',
-                            dark: '#C5A059'
-                        },
-                        onyx: '#050505',
-                        charcoal: '#0F0F0F'
-                    },
-                    fontFamily: {
-                        englishSerif: ['"Cormorant Garamond"', 'serif'],
-                        persianSerif: ['"Amiri"', 'serif'],
-                        sans: ['"Inter"', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+/* ---------- Nav ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 5vw;
+  mix-blend-mode:normal;
+  transition:padding .5s ease, background .5s ease, border-color .5s ease;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{
+  padding:16px 5vw;background:rgba(10,9,8,0.86);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.08em;color:var(--ivory);}
+.logo span{color:var(--gold);}
+nav.links{display:flex;gap:42px;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;}
+nav.links a{position:relative;color:var(--champagne);opacity:0.85;transition:opacity .3s;}
+nav.links a::after{content:'';position:absolute;bottom:-6px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:center;transition:transform .4s cubic-bezier(.16,1,.3,1);}
+nav.links a:hover{opacity:1;}
+nav.links a:hover::after{transform:scaleX(1);}
+.nav-right{display:flex;align-items:center;gap:22px;}
+#langToggle{
+  border:1px solid var(--line);background:transparent;color:var(--gold);
+  font-size:11px;letter-spacing:0.15em;padding:8px 16px;border-radius:100px;cursor:pointer;
+  transition:all .35s ease;font-family:inherit;
+}
+#langToggle:hover{background:var(--gold);color:var(--black);border-color:var(--gold);}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.burger span{width:22px;height:1px;background:var(--gold);}
 
-    <style>
-        :root {
-            --primary-gold: #D4AF37;
-            --primary-gold-dark: #C5A059;
-            --primary-gold-light: #EEDAA2;
-        }
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 6vw;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(60% 50% at 50% 20%, rgba(201,162,75,0.10), transparent 70%),
+    radial-gradient(80% 60% at 50% 100%, rgba(138,109,58,0.14), transparent 70%);
+  pointer-events:none;
+}
+.hero .eyebrow{
+  font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:var(--bronze);margin-bottom:26px;
+  overflow:hidden;
+}
+.hero .eyebrow span{display:inline-block;}
+.hero h1{
+  font-size:clamp(46px,9vw,128px);font-weight:300;line-height:1.05;color:var(--ivory);
+  overflow:hidden;
+}
+.hero h1 .line{overflow:hidden;}
+.hero h1 .word{display:inline-block;will-change:transform;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero p.sub{
+  margin-top:28px;max-width:520px;font-size:16px;line-height:1.9;color:var(--champagne);opacity:0.75;
+  font-weight:300;
+}
+.hero .cta-row{margin-top:46px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center;}
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-gold);
-            border-radius: 10px;
-        }
+.btn-gold{
+  position:relative;overflow:hidden;padding:16px 40px;border-radius:2px;
+  background:linear-gradient(120deg,var(--bronze),var(--gold) 40%,var(--gold-bright) 50%,var(--gold) 60%,var(--bronze));
+  background-size:220% 100%;
+  color:var(--black);font-size:13px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;
+  cursor:pointer;border:none;font-family:inherit;
+  transition:background-position 1.2s ease, transform .3s ease;
+}
+.btn-gold:hover{background-position:100% 0;transform:translateY(-2px);}
 
-        /* Luxury typography and effects */
-        .font-fa { font-family: 'Amiri', serif; }
-        .font-en { font-family: 'Cormorant Garamond', serif; }
+.btn-ghost{
+  padding:15px 34px;border:1px solid var(--line);border-radius:2px;font-size:13px;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--ivory);transition:all .35s ease;cursor:pointer;background:transparent;font-family:inherit;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 
-        .gold-shimmer {
-            background: linear-gradient(
-                to right,
-                var(--primary-gold-dark) 0%,
-                var(--primary-gold-light) 25%,
-                var(--primary-gold) 50%,
-                var(--primary-gold-dark) 75%,
-                var(--primary-gold-light) 100%
-            );
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 8s linear infinite;
-        }
+.scroll-cue{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;font-size:10px;letter-spacing:0.3em;
+  color:var(--bronze);text-transform:uppercase;
+}
+.scroll-cue .line{width:1px;height:34px;background:var(--line);position:relative;overflow:hidden;}
+.scroll-cue .line i{position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:cue 2.2s ease-in-out infinite;}
+@keyframes cue{ 0%{top:-100%} 60%{top:100%} 100%{top:100%} }
 
-        .luxury-glass {
-            background: rgba(10, 10, 10, 0.45);
-            backdrop-filter: blur(25px) saturate(140%);
-            -webkit-backdrop-filter: blur(25px) saturate(140%);
-            border: 1px solid rgba(212, 175, 55, 0.12);
-        }
+/* Gold thread signature divider */
+.thread-divider{
+  position:relative;height:160px;display:flex;align-items:center;justify-content:center;
+}
+.thread-divider svg{width:min(1200px,90vw);height:100%;}
+.thread-divider path{
+  fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:1;stroke-dashoffset:1;
+}
 
-        .luxury-glass-button {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+/* ---------- Section shared ---------- */
+section{padding:150px 6vw;position:relative;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:70px;gap:40px;flex-wrap:wrap;}
+.section-head .eyebrow{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--bronze);margin-bottom:16px;}
+.section-head h2{font-size:clamp(32px,4.4vw,56px);font-weight:300;color:var(--ivory);}
+.section-head p{max-width:360px;font-size:14px;line-height:1.8;color:var(--champagne);opacity:0.7;}
 
-        .luxury-glass-button:hover {
-            background: var(--primary-gold);
-            color: #000;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
-            border-color: var(--primary-gold);
-        }
+/* ---------- Collections ---------- */
+.collections{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.col-card{
+  position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--charcoal);
+  border:1px solid var(--line);
+}
+.col-card .frame{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(120% 100% at 50% 100%, rgba(201,162,75,0.30), transparent 60%),
+    linear-gradient(160deg,var(--charcoal-2),var(--charcoal) 70%);
+  display:flex;align-items:flex-end;padding:34px;
+  transition:transform .8s cubic-bezier(.16,1,.3,1);
+}
+.col-card:hover .frame{transform:scale(1.06);}
+.col-card .ring{
+  position:absolute;top:50%;left:50%;width:120px;height:120px;
+  border:1px solid var(--gold);border-radius:50%;
+  transform:translate(-50%,-50%) rotate(0deg);
+  opacity:0.55;
+  transition:transform 1.2s cubic-bezier(.16,1,.3,1), opacity .6s;
+}
+.col-card:hover .ring{transform:translate(-50%,-50%) rotate(160deg) scale(1.15);opacity:0.9;}
+.col-card .ring::after{
+  content:'';position:absolute;top:-4px;left:50%;width:8px;height:8px;background:var(--gold-bright);
+  border-radius:50%;transform:translateX(-50%);box-shadow:0 0 12px var(--gold-bright);
+}
+.col-card .info{position:relative;z-index:2;}
+.col-card .num{font-size:11px;color:var(--bronze);letter-spacing:0.2em;margin-bottom:10px;display:block;}
+.col-card h3{font-size:26px;color:var(--ivory);font-weight:400;}
+.col-card .arrow{
+  position:absolute;top:30px;inset-inline-end:30px;width:36px;height:36px;border:1px solid var(--line);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);
+  opacity:0;transform:translateY(8px);transition:all .4s ease;font-size:14px;
+}
+.col-card:hover .arrow{opacity:1;transform:translateY(0);}
 
-        @keyframes shine {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
+/* ---------- Featured strip ---------- */
+.featured{background:var(--charcoal);}
+.feat-row{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px;}
+.feat-row::-webkit-scrollbar{display:none;}
+.feat-card{
+  min-width:300px;flex:0 0 300px;background:var(--black);border:1px solid var(--line);padding:26px;
+}
+.feat-thumb{aspect-ratio:1/1;background:linear-gradient(150deg,var(--charcoal-2),var(--black));border:1px solid var(--line);margin-bottom:22px;position:relative;overflow:hidden;}
+.feat-thumb::after{
+  content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(232,205,138,0.25) 50%,transparent 60%);
+  transform:translateX(-120%);
+}
+.feat-card:hover .feat-thumb::after{animation:shine 1.1s ease forwards;}
+@keyframes shine{to{transform:translateX(120%);}}
+.feat-card .tag{font-size:10px;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:block;}
+.feat-card h4{font-size:19px;font-weight:400;color:var(--ivory);margin-bottom:8px;}
+.feat-card .price{font-size:14px;color:var(--champagne);opacity:0.8;}
 
-        /* Magnetic Liquid Cursor */
-        .custom-cursor {
-            width: 8px;
-            height: 8px;
-            background: var(--primary-gold);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease, background-color 0.3s ease;
-        }
+/* ---------- Craft / story ---------- */
+.craft{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.craft .visual{aspect-ratio:4/5;background:linear-gradient(160deg,var(--charcoal-2),var(--black));border:1px solid var(--line);position:relative;overflow:hidden;}
+.craft .visual .veins{position:absolute;inset:0;opacity:0.5;}
+.craft .visual svg{width:100%;height:100%;}
+.craft .visual path{fill:none;stroke:var(--gold);stroke-width:0.6;opacity:0.6;}
+.craft h2{font-size:clamp(30px,4vw,48px);font-weight:300;margin-bottom:26px;line-height:1.25;}
+.craft h2 em{color:var(--gold);font-style:italic;}
+.craft p{font-size:15px;line-height:2;color:var(--champagne);opacity:0.75;max-width:440px;margin-bottom:18px;}
+.stat-row{display:flex;gap:50px;margin-top:40px;}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--gold);font-weight:400;}
+.stat span{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--bronze);}
 
-        .custom-cursor-ring {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.3, 1), border-color 0.3s ease;
-        }
+/* ---------- Reviews ---------- */
+.reviews{text-align:center;}
+.review-track{max-width:720px;margin:0 auto;}
+.review-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,3vw,32px);line-height:1.6;color:var(--ivory);}
+.review-quote .mark{color:var(--gold);font-size:1.4em;}
+.review-name{margin-top:28px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);}
 
-        /* Lenis smooth scrolling configuration */
-        html.lenis {
-            height: auto;
-        }
-        .lenis-smooth {
-            scroll-behavior: auto !important;
-        }
-    </style>
+/* ---------- Newsletter / CTA ---------- */
+.cta-band{
+  text-align:center;background:linear-gradient(180deg,var(--black),var(--charcoal));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.cta-band h2{font-size:clamp(30px,5vw,60px);font-weight:300;margin-bottom:20px;}
+.cta-band p{color:var(--champagne);opacity:0.7;font-size:14px;margin-bottom:40px;}
+
+/* ---------- Footer ---------- */
+footer{padding:80px 6vw 40px;border-top:1px solid var(--line);}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:60px;}
+.foot-grid h5{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:20px;}
+.foot-grid a{display:block;font-size:14px;color:var(--champagne);opacity:0.75;margin-bottom:12px;transition:opacity .3s,color .3s;}
+.foot-grid a:hover{opacity:1;color:var(--gold);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid var(--line);font-size:12px;color:var(--bronze);flex-wrap:wrap;gap:14px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:860px){
+  nav.links{display:none;}
+  .burger{display:flex;}
+  .collections{grid-template-columns:1fr;}
+  .craft{grid-template-columns:1fr;gap:40px;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* language direction helper */
+body.lang-en{direction:ltr;}
+body.lang-fa{direction:rtl;}
+[data-fa]{}
+body.lang-en [data-fa]{display:none;}
+body.lang-fa [data-en]{display:none;}
+</style>
 </head>
-<body 
-    x-data="globalStore()" 
-    :dir="dir" 
-    :class="lang === 'fa' ? 'font-fa text-right' : 'font-en text-left'" 
-    class="bg-onyx text-gray-100 overflow-x-hidden"
->
+<body class="lang-fa">
 
-    <!-- Custom Cursor elements (hidden on touchscreens) -->
-    <div id="cursor" class="custom-cursor hidden md:block"></div>
-    <div id="cursor-ring" class="custom-cursor-ring hidden md:block"></div>
+<div id="loader">
+  <div class="mark">سز</div>
+  <div class="thread"><i></i></div>
+  <div class="pct" id="pct">0%</div>
+</div>
 
-    <!-- 1. Luxury Cinematic Loading Screen -->
-    <div id="loader" class="fixed inset-0 bg-[#030303] z-[99999] flex flex-col justify-center items-center">
-        <div class="text-center relative">
-            <h1 class="text-4xl md:text-6xl tracking-[0.25em] gold-shimmer font-light uppercase select-none mb-3">
-                SAMA ZARRIN
-            </h1>
-            <p class="text-xs uppercase tracking-[0.4em] text-white/40 font-sans">High Jewelry Atelier</p>
-            <div class="w-40 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-8 relative overflow-hidden">
-                <div class="absolute inset-0 bg-white translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
-            </div>
-        </div>
+<header id="siteHeader">
+  <div class="logo"><span>سما</span> زرین</div>
+  <nav class="links">
+    <a href="#collections" data-fa>کالکشن‌ها</a><a href="#collections" data-en>Collections</a>
+    <a href="#craft" data-fa>درباره ما</a><a href="#craft" data-en>About</a>
+    <a href="#featured" data-fa>محصولات</a><a href="#featured" data-en>Products</a>
+    <a href="#reviews" data-fa>نظرات</a><a href="#reviews" data-en>Reviews</a>
+    <a href="#contact" data-fa>تماس</a><a href="#contact" data-en>Contact</a>
+  </nav>
+  <div class="nav-right">
+    <button id="langToggle">EN</button>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow"><span data-fa>خانه هنر طلا و جواهر</span><span data-en>Fine Gold &amp; Jewellery House</span></div>
+  <h1>
+    <div class="line" data-fa><span class="word">جایی</span> <span class="word">که</span> <span class="word">طلا</span></div>
+    <div class="line" data-fa><span class="word"><em>جاودانه</em></span> <span class="word">می‌شود</span></div>
+    <div class="line" data-en><span class="word">Where</span> <span class="word">Gold</span></div>
+    <div class="line" data-en><span class="word">Becomes</span> <span class="word"><em>Eternal</em></span></div>
+  </h1>
+  <p class="sub" data-fa>هر قطعه با دستان استادکاران سما زرین، از طلای ناب، برای روایت داستانی ماندگار خلق می‌شود.</p>
+  <p class="sub" data-en>Each piece is handcrafted by Sama Zarrin's master goldsmiths — pure gold, shaped into a story meant to last.</p>
+  <div class="cta-row">
+    <button class="btn-gold"><span data-fa>مشاهده کالکشن</span><span data-en>Explore Collection</span></button>
+    <button class="btn-ghost"><span data-fa>داستان برند</span><span data-en>Our Story</span></button>
+  </div>
+  <div class="scroll-cue"><span data-fa>اسکرول</span><span data-en>Scroll</span><div class="line"><i></i></div></div>
+</header>
+</section>
+
+<div class="thread-divider">
+  <svg viewBox="0 0 1200 160" preserveAspectRatio="none">
+    <path id="threadPath" d="M0,80 C150,10 300,150 450,80 C600,10 750,150 900,80 C1000,30 1100,120 1200,80" />
+  </svg>
+</div>
+
+<section id="collections">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" data-fa>کالکشن‌های سما زرین</div>
+      <div class="eyebrow" data-en>Sama Zarrin Collections</div>
+      <h2 data-fa>منتخب فصل</h2>
+      <h2 data-en>Curated by Season</h2>
     </div>
-
-    <!-- Ambient WebGL-style Particle Engine Backdrop -->
-    <canvas id="particleCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 mix-blend-screen opacity-40"></canvas>
-
-    <!-- 2. Transparent Dynamic Header Nav -->
-    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-6 md:px-16" id="mainHeader">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            
-            <!-- Logo area -->
-            <div @click="activeView = 'home'; window.scrollTo({top: 0, behavior: 'smooth'})" class="cursor-pointer">
-                <h1 class="text-2xl md:text-3xl tracking-[0.15em] font-light uppercase gold-shimmer select-none">
-                    سما زرین
-                </h1>
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="hidden lg:flex items-center gap-12 text-xs uppercase tracking-[0.2em] text-white/70">
-                <a href="#about" class="hover:text-gold transition-colors duration-300">About Us</a>
-                <a href="#collections" class="hover:text-gold transition-colors duration-300">Collections</a>
-                <a href="#products" class="hover:text-gold transition-colors duration-300">Creations</a>
-                <a href="#gallery" class="hover:text-gold transition-colors duration-300">Gallery</a>
-                <a href="#contact" class="hover:text-gold transition-colors duration-300">Contact</a>
-            </nav>
-
-            <!-- Utility Controls -->
-            <div class="flex items-center gap-6">
-                <!-- Lang Switcher -->
-                <button 
-                    @click="toggleLang()" 
-                    class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-xs tracking-wider uppercase font-sans hover:border-[#D4AF37] transition-all duration-500 bg-black/40 hover:text-[#D4AF37]"
-                >
-                    <span x-text="lang === 'en' ? 'FA' : 'EN'"></span>
-                </button>
-
-                <!-- Admin Access Key (Hidden Elegant Access Point) -->
-                <button 
-                    @click="openAdminModal()" 
-                    class="p-2 border border-white/5 hover:border-[#D4AF37]/50 rounded-full transition-all duration-500 bg-black/20"
-                    title="Atelier Control Center"
-                >
-                    <i data-lucide="shield" class="w-4 h-4 text-white/50 hover:text-gold"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Dynamic Interface -->
-    <div class="relative z-10">
-
-        <!-- 3. Cinematic Hero Showcase Section -->
-        <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden" id="home">
-            <!-- Background video overlay -->
-            <div class="absolute inset-0 bg-[#000] opacity-45 mix-blend-multiply pointer-events-none"></div>
-            
-            <div class="relative z-10 max-w-4xl px-4 flex flex-col gap-6 items-center">
-                <div class="mb-2 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
-                    <span class="text-[10px] md:text-xs font-sans tracking-[0.3em] text-gold uppercase" x-text="t.subHeader"></span>
-                </div>
-                
-                <h1 class="text-4xl sm:text-6xl md:text-8xl leading-none tracking-widest font-light gold-shimmer py-2">
-                    <span x-text="t.title"></span>
-                </h1>
-                
-                <p class="text-sm md:text-xl font-sans tracking-wide text-white/70 max-w-2xl mx-auto font-light leading-relaxed" x-text="t.tagline"></p>
-
-                <div class="mt-8 flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto">
-                    <a href="#products" class="luxury-glass-button px-10 py-5 rounded-sm text-xs uppercase tracking-[0.25em] text-[#D4AF37]">
-                        <span x-text="t.exploreBtn"></span>
-                    </a>
-                    <a href="#contact" class="px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-sm text-xs uppercase tracking-[0.25em] transition-all duration-700">
-                        <span x-text="t.contactBtn"></span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Absolute Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 translate-x-[-50%] flex flex-col items-center gap-2 select-none pointer-events-none opacity-40">
-                <span class="text-[10px] tracking-[0.25em] uppercase font-sans">Scroll</span>
-                <div class="w-[1px] h-10 bg-gradient-to-b from-white to-transparent"></div>
-            </div>
-        </section>
-
-        <!-- 4. About Us: Minimal split-layout -->
-        <section class="py-24 md:py-32 px-6 md:px-16 max-w-7xl mx-auto border-t border-white/5" id="about">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="space-y-8">
-                    <div class="flex items-center gap-4">
-                        <div class="h-[1px] w-12 bg-[#D4AF37]"></div>
-                        <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">The Atelier</span>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-light tracking-wide leading-tight" x-text="t.aboutHeadline"></h2>
-                    <p class="text-white/60 leading-relaxed text-sm md:text-base font-sans" x-text="t.aboutText"></p>
-                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-white/5 text-center sm:text-left">
-                        <div>
-                            <p class="text-2xl md:text-3xl font-light text-gold font-sans">18k</p>
-                            <p class="text-[10px] uppercase tracking-widest text-white/40 mt-1" x-text="t.goldKarat"></p>
-                        </div>
-                        <div>
-                            <p class="text-2xl md:text-3xl font-light text-gold font-sans">100%</p>
-                            <p class="text-[10px] uppercase tracking-widest text-white/40 mt-1" x-text="t.handcrafted"></p>
-                        </div>
-                        <div>
-                            <p class="text-2xl md:text-3xl font-light text-gold font-sans">2006</p>
-                            <p class="text-[10px] uppercase tracking-widest text-white/40 mt-1" x-text="t.since"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative group overflow-hidden border border-white/10 rounded-sm">
-                    <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=1200&q=80" alt="Sama Zarrin Atelier Craft" class="w-full h-[450px] object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Collections (Horizontal Showcase Grid) -->
-        <section class="py-24 md:py-32 bg-charcoal/50 border-t border-b border-white/5" id="collections">
-            <div class="max-w-7xl mx-auto px-6 md:px-16">
-                <div class="flex justify-between items-end mb-16">
-                    <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">Curated Vault</span>
-                        <h2 class="text-3xl md:text-4xl font-light tracking-wide" x-text="t.curatedCollections"></h2>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Collection 1 -->
-                    <div class="relative group overflow-hidden border border-white/10 rounded-sm aspect-[4/5] bg-black">
-                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80" alt="Royal Wedding Ring Collection" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
-                            <h3 class="text-2xl font-light tracking-wide text-white group-hover:text-gold transition-colors duration-300" x-text="t.coll1"></h3>
-                            <p class="text-xs text-white/40 font-sans tracking-widest mt-2 uppercase">Eternal Ring Series</p>
-                        </div>
-                    </div>
-                    <!-- Collection 2 -->
-                    <div class="relative group overflow-hidden border border-white/10 rounded-sm aspect-[4/5] bg-black">
-                        <img src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80" alt="Solitaire Necklaces Collection" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
-                            <h3 class="text-2xl font-light tracking-wide text-white group-hover:text-gold transition-colors duration-300" x-text="t.coll2"></h3>
-                            <p class="text-xs text-white/40 font-sans tracking-widest mt-2 uppercase">Elegance Chains</p>
-                        </div>
-                    </div>
-                    <!-- Collection 3 -->
-                    <div class="relative group overflow-hidden border border-white/10 rounded-sm aspect-[4/5] bg-black">
-                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80" alt="Premium Golden Bracelets" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
-                            <h3 class="text-2xl font-light tracking-wide text-white group-hover:text-gold transition-colors duration-300" x-text="t.coll3"></h3>
-                            <p class="text-xs text-white/40 font-sans tracking-widest mt-2 uppercase">Solid Cuff Luxury</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. Creations Products Dynamic Grid -->
-        <section class="py-24 md:py-32 px-6 md:px-16 max-w-7xl mx-auto" id="products">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-                <div class="space-y-4">
-                    <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">The Catalogue</span>
-                    <h2 class="text-3xl md:text-5xl font-light tracking-wide" x-text="t.creationsHeadline"></h2>
-                </div>
-                
-                <!-- Live Search & Filtering Options -->
-                <div class="flex flex-wrap gap-4 items-center">
-                    <input 
-                        type="text" 
-                        x-model="searchQuery" 
-                        :placeholder="lang === 'fa' ? 'جستجو در آثار...' : 'Search creations...'" 
-                        class="bg-black/60 border border-white/10 focus:border-gold outline-none px-4 py-2 rounded-sm text-xs tracking-wider font-sans w-64 transition-all duration-500"
-                    >
-                    <select 
-                        x-model="selectedCategory" 
-                        class="bg-black/60 border border-white/10 focus:border-gold outline-none px-4 py-2 rounded-sm text-xs tracking-wider font-sans text-white/80"
-                    >
-                        <option value="all" x-text="lang === 'fa' ? 'همه دسته‌ها' : 'All Categories'"></option>
-                        <option value="Rings" x-text="lang === 'fa' ? 'انگشتر' : 'Rings'"></option>
-                        <option value="Necklaces" x-text="lang === 'fa' ? 'گردنبند' : 'Necklaces'"></option>
-                        <option value="Bracelets" x-text="lang === 'fa' ? 'دستبند' : 'Bracelets'"></option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Dynamic Product Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <template x-for="product in filteredProducts()" :key="product.id">
-                    <div class="relative group bg-charcoal border border-white/5 rounded-sm overflow-hidden flex flex-col h-full hover:border-gold/30 transition-all duration-700">
-                        <div class="relative aspect-[4/5] overflow-hidden bg-black flex items-center justify-center">
-                            <img :src="product.image" :alt="product.title[lang]" class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-1000 opacity-90 group-hover:opacity-100">
-                            
-                            <!-- Premium Gold Tags -->
-                            <div class="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none">
-                                <span class="bg-black/80 backdrop-blur-sm border border-gold/40 text-[10px] text-gold uppercase px-2.5 py-1 tracking-widest font-sans" x-text="product.karat + ' Karat'"></span>
-                            </div>
-                        </div>
-
-                        <div class="p-6 flex flex-col flex-grow justify-between gap-4">
-                            <div>
-                                <h3 class="text-xl font-light tracking-wide text-white/90 group-hover:text-gold transition-colors duration-300" x-text="product.title[lang]"></h3>
-                                <p class="text-xs text-white/40 font-sans tracking-widest mt-1" x-text="product.sku"></p>
-                            </div>
-
-                            <div class="flex justify-between items-center pt-4 border-t border-white/5">
-                                <span class="text-lg font-light text-gold font-sans" x-text="'$' + product.price.toLocaleString()"></span>
-                                <button 
-                                    @click="openDetails(product)" 
-                                    class="text-[10px] uppercase tracking-[0.25em] text-white hover:text-gold transition-colors duration-300 flex items-center gap-1 font-sans"
-                                >
-                                    <span x-text="t.viewDetails"></span>
-                                    <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </section>
-
-        <!-- 7. Premium Cinematic Gallery -->
-        <section class="py-24 md:py-32 bg-black/60 border-t border-b border-white/5" id="gallery">
-            <div class="max-w-7xl mx-auto px-6 md:px-16">
-                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                    <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">The Showcase</span>
-                    <h2 class="text-3xl md:text-4xl font-light tracking-wide" x-text="t.galleryHeadline"></h2>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="overflow-hidden border border-white/10 rounded-sm aspect-[3/4] bg-onyx group">
-                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Golden Diamonds close-up" class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="overflow-hidden border border-white/10 rounded-sm aspect-[3/4] bg-onyx group">
-                        <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=600&q=80" alt="Purity process detail" class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="overflow-hidden border border-white/10 rounded-sm aspect-[3/4] bg-onyx group">
-                        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80" alt="Elegant design draft" class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100">
-                    </div>
-                    <div class="overflow-hidden border border-white/10 rounded-sm aspect-[3/4] bg-onyx group">
-                        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80" alt="Finished bespoke band" class="w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. Interactive FAQ & Contact Accordion -->
-        <section class="py-24 md:py-32 px-6 md:px-16 max-w-5xl mx-auto" id="contact">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <!-- Direct Inquiry Form -->
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">Contact Atelier</span>
-                        <h2 class="text-3xl font-light tracking-wide" x-text="t.inquiryTitle"></h2>
-                    </div>
-                    
-                    <form class="space-y-6" @submit.prevent="alert('Your inquiry was processed securely.')">
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-white/40 mb-2 font-sans">Client Name</label>
-                            <input type="text" required class="w-full bg-black/40 border border-white/10 focus:border-gold outline-none px-4 py-3 rounded-sm text-sm transition-all duration-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-white/40 mb-2 font-sans">Direct Telephone</label>
-                            <input type="tel" required class="w-full bg-black/40 border border-white/10 focus:border-gold outline-none px-4 py-3 rounded-sm text-sm transition-all duration-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase tracking-widest text-white/40 mb-2 font-sans">Inquiry Details</label>
-                            <textarea rows="4" required class="w-full bg-black/40 border border-white/10 focus:border-gold outline-none px-4 py-3 rounded-sm text-sm transition-all duration-500"></textarea>
-                        </div>
-                        <button type="submit" class="luxury-glass-button w-full py-4 text-xs tracking-[0.3em] uppercase text-gold font-sans font-bold">
-                            Submit Secure Inquiry
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Accordion FAQ -->
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans">Atelier Policies</span>
-                        <h2 class="text-3xl font-light tracking-wide" x-text="lang === 'fa' ? 'پرسش‌های متداول' : 'Frequently Asked'"></h2>
-                    </div>
-
-                    <div class="space-y-4" x-data="{ activeFaq: 0 }">
-                        <div class="border border-white/10 p-5 rounded-sm bg-black/30">
-                            <button @click="activeFaq = activeFaq === 0 ? null : 0" class="w-full flex justify-between items-center text-left text-sm tracking-wide font-light">
-                                <span class="text-white hover:text-gold" x-text="lang === 'fa' ? 'آیا امکان سفارش طلا با عیار ۲۴ وجود دارد؟' : 'Is 24 Karat gold available for customization?'"></span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" :class="activeFaq === 0 ? 'rotate-180' : ''"></i>
-                            </button>
-                            <div x-show="activeFaq === 0" x-collapse class="mt-4 text-xs text-white/60 leading-relaxed font-sans" x-text="lang === 'fa' ? 'بله، سما زرین پذیرای سفارشات با عیار ۲۴ برای قطعات خاص طبق معیارهای استاندارد بین‌المللی می‌باشد.' : 'Yes, Sama Zarrin accommodates custom orders crafted in Pure 24 Karat gold upon absolute client request.'"></div>
-                        </div>
-
-                        <div class="border border-white/10 p-5 rounded-sm bg-black/30">
-                            <button @click="activeFaq = activeFaq === 1 ? null : 1" class="w-full flex justify-between items-center text-left text-sm tracking-wide font-light">
-                                <span class="text-white hover:text-gold" x-text="lang === 'fa' ? 'مدت زمان ساخت سفارشی چقدر است؟' : 'What is the curation time for customized pieces?'"></span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" :class="activeFaq === 1 ? 'rotate-180' : ''"></i>
-                            </button>
-                            <div x-show="activeFaq === 1" x-collapse class="mt-4 text-xs text-white/60 leading-relaxed font-sans" x-text="lang === 'fa' ? 'مدت زمان معمول برای طراحی و ساخت قطعات منحصر به فرد بسته به پیچیدگی طرح بین ۲ تا ۴ هفته می‌باشد.' : 'Typically, customized handcrafted design timelines vary between 2 to 4 weeks depending strictly on layout complexity.'"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. Immersive Footer Layout -->
-        <footer class="bg-black py-16 px-6 md:px-16 border-t border-white/10 text-white/50">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div class="space-y-4">
-                    <h1 class="text-xl tracking-widest text-white uppercase gold-shimmer font-light">SAMA ZARRIN</h1>
-                    <p class="text-xs font-sans leading-relaxed text-white/40">Providing unrivaled high-jewelry and solid gold expressions with timeless prestige.</p>
-                </div>
-                <div>
-                    <h4 class="text-xs uppercase tracking-[0.2em] text-white font-sans mb-4">Navigations</h4>
-                    <ul class="space-y-2 text-xs font-sans">
-                        <li><a href="#about" class="hover:text-gold">Atelier Profile</a></li>
-                        <li><a href="#collections" class="hover:text-gold">High Vault</a></li>
-                        <li><a href="#products" class="hover:text-gold">Catalog Masterpieces</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-xs uppercase tracking-[0.2em] text-white font-sans mb-4">Atelier Address</h4>
-                    <p class="text-xs font-sans leading-relaxed text-white/40">
-                        Tehran, Jordan Blvd, luxury Gallery Plaza<br>
-                        Phone: +98 21 8888 8888
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-xs uppercase tracking-[0.2em] text-white font-sans mb-4">Secured Certifications</h4>
-                    <p class="text-xs font-sans leading-relaxed text-white/40">Authenticity Guarantee Card provided with every unique collection.</p>
-                </div>
-            </div>
-            <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs font-sans gap-4">
-                <p>&copy; 2026 Sama Zarrin. All Rights Reserved.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="hover:text-gold">Terms of Premium Service</a>
-                    <a href="#" class="hover:text-gold">Privacy Policy</a>
-                </div>
-            </div>
-        </footer>
-
+    <p data-fa>سه کالکشن، سه روایت. از سنت ایرانی تا مینیمالیسم مدرن، هرکدام با طلای ۱۸ عیار.</p>
+    <p data-en>Three collections, three stories. From Persian tradition to modern minimalism — each cast in 18k gold.</p>
+  </div>
+  <div class="collections">
+    <div class="col-card">
+      <div class="frame"><div class="ring"></div><div class="info"><span class="num">01</span><h3 data-fa>گردنبند</h3><h3 data-en>Necklaces</h3></div></div>
+      <div class="arrow">→</div>
     </div>
-
-    <!-- 10. PRODUCT DETAIL MODAL DRAWER -->
-    <div x-show="selectedProduct !== null" class="fixed inset-0 z-[1000] flex justify-center items-center p-4 bg-black/90 backdrop-blur-md" style="display: none;">
-        <div @click.away="closeDetails()" class="luxury-glass max-w-4xl w-full rounded-sm overflow-hidden grid grid-cols-1 md:grid-cols-2 relative border border-gold/40 animate-fadeIn">
-            <button @click="closeDetails()" class="absolute top-4 right-4 z-50 text-white/70 hover:text-gold p-2">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div class="bg-black flex items-center justify-center p-4">
-                <img :src="selectedProduct?.image" :alt="selectedProduct?.title[lang]" class="w-full h-[400px] object-cover rounded-sm">
-            </div>
-
-            <div class="p-8 flex flex-col justify-between gap-6">
-                <div>
-                    <span class="text-xs uppercase tracking-[0.3em] text-[#D4AF37] font-sans" x-text="selectedProduct?.category"></span>
-                    <h2 class="text-3xl font-light tracking-wide text-white mt-2 mb-4" x-text="selectedProduct?.title[lang]"></h2>
-                    <p class="text-xs text-white/60 leading-relaxed font-sans mb-6" x-text="selectedProduct?.desc[lang]"></p>
-
-                    <div class="grid grid-cols-2 gap-4 border-t border-b border-white/5 py-4 text-xs font-sans">
-                        <div>
-                            <span class="text-white/40 block uppercase tracking-widest text-[9px]">Gold Weight</span>
-                            <span class="text-white font-medium" x-text="selectedProduct?.weight + ' grams'"></span>
-                        </div>
-                        <div>
-                            <span class="text-white/40 block uppercase tracking-widest text-[9px]">Purity Standard</span>
-                            <span class="text-white font-medium" x-text="selectedProduct?.karat + ' Karat'"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-light text-gold font-sans" x-text="'$' + selectedProduct?.price.toLocaleString()"></span>
-                    <button class="luxury-glass-button px-6 py-3 text-xs tracking-wider uppercase text-gold font-sans">Acquire Piece</button>
-                </div>
-            </div>
-        </div>
+    <div class="col-card">
+      <div class="frame"><div class="ring"></div><div class="info"><span class="num">02</span><h3 data-fa>انگشتر</h3><h3 data-en>Rings</h3></div></div>
+      <div class="arrow">→</div>
     </div>
-
-    <!-- 11. ATELIER ADMIN CONTROL CONTROL PANEL (Simulated Firestore Controller) -->
-    <div x-show="adminModalOpen" class="fixed inset-0 z-[2000] flex justify-center items-center p-4 bg-black/95 backdrop-blur-lg" style="display: none;">
-        <div class="luxury-glass max-w-4xl w-full rounded-sm overflow-hidden p-8 border border-gold relative">
-            <button @click="adminModalOpen = false" class="absolute top-4 right-4 text-white/60 hover:text-gold p-2">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <!-- Authentication Phase -->
-            <div x-show="!adminLoggedIn" class="max-w-md mx-auto text-center py-12 space-y-6">
-                <i data-lucide="shield-alert" class="w-12 h-12 text-gold mx-auto animate-pulse"></i>
-                <h3 class="text-2xl font-light tracking-wide text-white">Atelier Authentication</h3>
-                <p class="text-xs text-white/60 font-sans">Input the verified administrator configuration number stored in config/admin-auth.json</p>
-                <div class="space-y-4">
-                    <input type="password" placeholder="+98 912 345 6789" x-model="adminPassword" class="w-full text-center bg-black/40 border border-white/10 focus:border-gold outline-none px-4 py-3 rounded-sm text-sm transition-all duration-500 font-sans tracking-widest">
-                    <button @click="tryLogin()" class="luxury-glass-button w-full py-3 text-xs tracking-[0.2em] uppercase text-gold font-sans font-bold">Authenticate</button>
-                </div>
-                <p x-show="loginError" class="text-red-500 text-xs font-sans">Access Denied: Invalid configuration identity.</p>
-            </div>
-
-            <!-- Dashboard Phase (Theme and Style Controller overrides values immediately) -->
-            <div x-show="adminLoggedIn" class="space-y-8 animate-fadeIn">
-                <div class="border-b border-white/10 pb-6">
-                    <h3 class="text-2xl font-light tracking-wider text-white gold-shimmer uppercase flex items-center gap-3">
-                        <i data-lucide="settings" class="text-gold"></i> Atelier Configuration Center
-                    </h3>
-                    <p class="text-xs text-white/40 mt-1 font-sans">Modify real-time layout structures, active database parameters and structural theme coloring variables without code changes.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Column 1: Live Color Shimmer Customizer -->
-                    <div class="space-y-4 bg-black/30 p-4 border border-white/5 rounded-sm">
-                        <h4 class="text-xs uppercase tracking-[0.15em] text-gold font-sans border-b border-white/5 pb-2">Dynamic Color Shimmer</h4>
-                        <div>
-                            <label class="block text-[10px] text-white/40 uppercase mb-2">Gold Highlight Color</label>
-                            <input type="color" x-model="themeGold" @input="updateThemeGold" class="w-full h-10 bg-transparent outline-none cursor-pointer">
-                        </div>
-                    </div>
-
-                    <!-- Column 2: Simulated Live Products Database Matrix -->
-                    <div class="space-y-4 bg-black/30 p-4 border border-white/5 rounded-sm md:col-span-2">
-                        <h4 class="text-xs uppercase tracking-[0.15em] text-gold font-sans border-b border-white/5 pb-2">Live Creations Sync (Firestore Simulator)</h4>
-                        <div class="max-h-[220px] overflow-y-auto space-y-3 pr-2">
-                            <template x-for="(product, idx) in products" :key="product.id">
-                                <div class="flex items-center justify-between text-xs p-2.5 bg-black/50 border border-white/5 rounded-sm">
-                                    <div class="flex items-center gap-3">
-                                        <img :src="product.image" class="w-8 h-8 object-cover rounded-sm">
-                                        <div>
-                                            <span class="block text-white" x-text="product.title[lang]"></span>
-                                            <span class="text-[9px] text-white/40" x-text="product.sku"></span>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <input type="number" x-model="product.price" class="bg-black border border-white/15 px-2 py-1 w-16 text-center text-gold text-[10px]">
-                                    </div>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-end gap-4 border-t border-white/5 pt-6">
-                    <button @click="logout()" class="px-6 py-3 text-xs tracking-wider uppercase border border-white/10 hover:border-red-500 hover:text-red-500 rounded-sm font-sans">Disconnect Session</button>
-                    <button @click="adminModalOpen = false" class="luxury-glass-button px-6 py-3 text-xs tracking-wider uppercase text-gold font-sans font-bold">Apply Variations</button>
-                </div>
-            </div>
-        </div>
+    <div class="col-card">
+      <div class="frame"><div class="ring"></div><div class="info"><span class="num">03</span><h3 data-fa>دستبند</h3><h3 data-en>Bracelets</h3></div></div>
+      <div class="arrow">→</div>
     </div>
+  </div>
+</section>
 
-    <!-- Script Implementation -->
-    <script>
-        // Global Alpine Store Model
-        function globalStore() {
-            return {
-                lang: 'fa',
-                dir: 'rtl',
-                activeView: 'home',
-                searchQuery: '',
-                selectedCategory: 'all',
-                selectedProduct: null,
-                adminModalOpen: false,
-                adminLoggedIn: false,
-                adminPassword: '',
-                loginError: false,
-                themeGold: '#D4AF37',
-                
-                // Static Localized Strings Context
-                t: {
-                    subHeader: 'Atelier Premium Standard',
-                    title: 'سما زرین',
-                    tagline: 'Timeless Pure Gold & Masterpiece High Jewelry Expressions.',
-                    exploreBtn: 'Explore The Vault',
-                    contactBtn: 'Private Commission',
-                    aboutHeadline: 'The Purest Expressions of Royal Gold Craftsmanship.',
-                    aboutText: 'For decades, Sama Zarrin has created custom exquisite designs with rigorous adherence to global high-carat specifications. Each artifact features hand-polished solid golden frameworks tailored specifically for unique personas.',
-                    goldKarat: '18 Karat Solid Gold',
-                    handcrafted: 'Handcrafted Precision',
-                    since: 'Established Atelier',
-                    curatedCollections: 'Dynamic Curated Creations',
-                    coll1: 'Royal Wedding Series',
-                    coll2: 'Solitaire Statement Necklaces',
-                    coll3: 'Absolute Cuff Gold Bracelets',
-                    creationsHeadline: 'Atelier Catalog Matrix',
-                    galleryHeadline: 'Moments of Gold Creation',
-                    inquiryTitle: 'Acquisition & Bespoke Placement',
-                    viewDetails: 'Examine Masterpiece'
-                },
+<section id="featured" class="featured">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" data-fa>پرفروش‌ترین‌ها</div>
+      <div class="eyebrow" data-en>Best Sellers</div>
+      <h2 data-fa>محصولات ویژه</h2>
+      <h2 data-en>Featured Pieces</h2>
+    </div>
+  </div>
+  <div class="feat-row">
+    <div class="feat-card"><div class="feat-thumb"></div><span class="tag" data-fa>طلای ۱۸ عیار</span><span class="tag" data-en>18K Gold</span><h4 data-fa>گردنبند ستاره</h4><h4 data-en>Star Necklace</h4><div class="price" data-fa>۴۵,۰۰۰,۰۰۰ تومان</div><div class="price" data-en>$1,240</div></div>
+    <div class="feat-card"><div class="feat-thumb"></div><span class="tag" data-fa>طلای ۲۱ عیار</span><span class="tag" data-en>21K Gold</span><h4 data-fa>انگشتر آریا</h4><h4 data-en>Aria Ring</h4><div class="price" data-fa>۲۸,۵۰۰,۰۰۰ تومان</div><div class="price" data-en>$780</div></div>
+    <div class="feat-card"><div class="feat-thumb"></div><span class="tag" data-fa>طلای ۱۸ عیار</span><span class="tag" data-en>18K Gold</span><h4 data-fa>دستبند زرافشان</h4><h4 data-en>Zarafshan Bracelet</h4><div class="price" data-fa>۳۶,۲۰۰,۰۰۰ تومان</div><div class="price" data-en>$990</div></div>
+    <div class="feat-card"><div class="feat-thumb"></div><span class="tag" data-fa>طلای سفید</span><span class="tag" data-en>White Gold</span><h4 data-fa>گوشواره الماس</h4><h4 data-en>Diamond Drop Earrings</h4><div class="price" data-fa>۵۲,۰۰۰,۰۰۰ تومان</div><div class="price" data-en>$1,430</div></div>
+  </div>
+</section>
 
-                // Simulated Product Catalogue Base
-                products: [
-                    {
-                        id: 1,
-                        sku: 'SZ-WR-001',
-                        title: { en: 'Royal Solitaire Ring', fa: 'انگشتر تک‌نگین سلطنتی' },
-                        desc: { en: 'A mesmerizing high luxury ring featuring perfect brilliant-cut flawless diamond set inside highly detailed structural 18k framework.', fa: 'حلقه تک‌نگین خیره‌کننده با طراحی متمایز و الماس تراش خورده بر روی بازوی طلای ۱۸ عیار.' },
-                        category: 'Rings',
-                        karat: 18,
-                        weight: 4.8,
-                        price: 3400,
-                        image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80'
-                    },
-                    {
-                        id: 2,
-                        sku: 'SZ-NC-009',
-                        title: { en: 'Premium Aurelia Pendant', fa: 'گردنبند آوریلیا گولد' },
-                        desc: { en: 'An exquisite flowing gold drop necklace capturing modern minimal fluid structures matching red carpet environments.', fa: 'گردنبند مدرن آوریلیا با خطوط مینیمال و انحناهای طلایی که نمادی از کمال طراحی معاصر است.' },
-                        category: 'Necklaces',
-                        karat: 18,
-                        weight: 8.2,
-                        price: 5200,
-                        image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=800&q=80'
-                    },
-                    {
-                        id: 3,
-                        sku: 'SZ-BR-015',
-                        title: { en: 'The Majestic Solid Cuff', fa: 'دستبند زنجیری شاهانه' },
-                        desc: { en: 'Heavy, luxurious structural bracelet designed with precision modular locking pins. Refined individually by high artisans.', fa: 'دستبند پهن و سنگین با مکانیزم قفل اختصاصی و پولیش دستی منحصر به فرد.' },
-                        category: 'Bracelets',
-                        karat: 18,
-                        weight: 12.5,
-                        price: 8900,
-                        image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80'
-                    }
-                ],
+<section id="craft" class="craft">
+  <div class="visual">
+    <div class="veins">
+      <svg viewBox="0 0 400 500"><path d="M0,250 C100,100 150,400 200,250 C250,100 300,400 400,250"/></svg>
+    </div>
+  </div>
+  <div>
+    <h2 data-fa>ساخته شده با <em>دست</em>، نه دستگاه</h2>
+    <h2 data-en>Made by <em>Hand</em>, Not Machine</h2>
+    <p data-fa>بیش از سه دهه است که استادکاران سما زرین، طلا را قطعه به قطعه شکل می‌دهند. هر برش، هر پرداخت، حاصل ساعت‌ها دقت است.</p>
+    <p data-en>For three decades, Sama Zarrin's goldsmiths have shaped gold piece by piece. Every cut, every polish, is the product of hours of precision.</p>
+    <div class="stat-row">
+      <div class="stat"><b>30+</b><span data-fa>سال تجربه</span><span data-en>Years of Craft</span></div>
+      <div class="stat"><b>18K</b><span data-fa>خلوص طلا</span><span data-en>Gold Purity</span></div>
+      <div class="stat"><b>12K+</b><span data-fa>مشتری راضی</span><span data-en>Happy Clients</span></div>
+    </div>
+  </div>
+</section>
 
-                init() {
-                    this.updateLangTranslations();
-                },
+<section id="reviews" class="reviews">
+  <div class="review-track">
+    <div class="review-quote">
+      <span class="mark">“</span><span data-fa>کیفیت و ظرافت کار سما زرین در ایران بی‌نظیره. گردنبندی که خریدم شبیه اثر هنریه.</span><span data-en>The quality and delicacy of Sama Zarrin's work is unmatched. The necklace I bought feels like a work of art.</span><span class="mark">”</span>
+    </div>
+    <div class="review-name" data-fa>— نگار احمدی</div>
+    <div class="review-name" data-en>— Negar Ahmadi</div>
+  </div>
+</section>
 
-                toggleLang() {
-                    this.lang = this.lang === 'en' ? 'fa' : 'en';
-                    this.dir = this.lang === 'fa' ? 'rtl' : 'ltr';
-                    this.updateLangTranslations();
-                },
+<section class="cta-band">
+  <h2 data-fa>عضو خانواده سما زرین شوید</h2>
+  <h2 data-en>Join the Sama Zarrin Circle</h2>
+  <p data-fa>از کالکشن‌های جدید و رویدادهای اختصاصی زودتر از همه باخبر شوید.</p>
+  <p data-en>Be the first to know about new collections and private events.</p>
+  <button class="btn-gold"><span data-fa>عضویت</span><span data-en>Subscribe</span></button>
+</section>
 
-                updateLangTranslations() {
-                    if (this.lang === 'fa') {
-                        this.t = {
-                            subHeader: 'استاندارد عالی طلا و جواهر',
-                            title: 'سما زرین',
-                            tagline: 'تلاقی بی نقص ظرافت، هنر دستی خالص و ارزشمندترین سنگ‌های قیمتی تاریخ.',
-                            exploreBtn: 'مشاهده گنجینه',
-                            contactBtn: 'سفارش اختصاصی',
-                            aboutHeadline: 'خالص‌ترین جلوه از هنر صنایع دستی لوکس طلا.',
-                            aboutText: 'برای ده‌ها سال، سما زرین آثاری تولید کرده که نمادی اصیل از لوکس بودن و ارزش پایداری را منتقل می‌کند. طراحی بی‌نقص منطبق بر اصول کلاسیک کارتیه و تیفانی.',
-                            goldKarat: 'عیار ۱۸ استاندارد',
-                            handcrafted: 'صد درصد کار دست',
-                            since: 'تاسیس رسمی آتلیه',
-                            curatedCollections: 'مجموعه‌های برگزیده شاهانه',
-                            coll1: 'حلقه‌های ازدواج سلطنتی',
-                            coll2: 'آویزهای تک سنگ کلاسیک',
-                            coll3: 'دستبندهای صلب سفارشی',
-                            creationsHeadline: 'کاتالوگ رسمی آثار',
-                            galleryHeadline: 'لحظاتی از فرآیند خلق آثار طلایی',
-                            inquiryTitle: 'ثبت سفارش و مکاتبه اختصاصی',
-                            viewDetails: 'بررسی جزییات اثر'
-                        }
-                    } else {
-                        this.t = {
-                            subHeader: 'Atelier Premium Standard',
-                            title: 'Sama Zarrin',
-                            tagline: 'Timeless Pure Gold & Masterpiece High Jewelry Expressions.',
-                            exploreBtn: 'Explore The Vault',
-                            contactBtn: 'Private Commission',
-                            aboutHeadline: 'The Purest Expressions of Royal Gold Craftsmanship.',
-                            aboutText: 'For decades, Sama Zarrin has created custom exquisite designs with rigorous adherence to global high-carat specifications. Each artifact features hand-polished solid golden frameworks tailored specifically for unique personas.',
-                            goldKarat: '18 Karat Solid Gold',
-                            handcrafted: 'Handcrafted Precision',
-                            since: 'Established Atelier',
-                            curatedCollections: 'Dynamic Curated Creations',
-                            coll1: 'Royal Wedding Series',
-                            coll2: 'Solitaire Statement Necklaces',
-                            coll3: 'Absolute Cuff Gold Bracelets',
-                            creationsHeadline: 'Atelier Catalog Matrix',
-                            galleryHeadline: 'Moments of Gold Creation',
-                            inquiryTitle: 'Acquisition & Bespoke Placement',
-                            viewDetails: 'Examine Masterpiece'
-                        }
-                    }
-                },
+<footer id="contact">
+  <div class="foot-grid">
+    <div>
+      <div class="logo" style="margin-bottom:16px;"><span>سما</span> زرین</div>
+      <p style="font-size:13px;color:var(--champagne);opacity:0.65;line-height:1.9;max-width:280px;" data-fa>خانه طلا و جواهرات لوکس، ساخته‌شده با عشق و دقت.</p>
+      <p style="font-size:13px;color:var(--champagne);opacity:0.65;line-height:1.9;max-width:280px;" data-en>A house of fine gold and jewellery, crafted with love and precision.</p>
+    </div>
+    <div>
+      <h5 data-fa>فروشگاه</h5><h5 data-en>Shop</h5>
+      <a href="#" data-fa>گردنبند</a><a href="#" data-en>Necklaces</a>
+      <a href="#" data-fa>انگشتر</a><a href="#" data-en>Rings</a>
+      <a href="#" data-fa>دستبند</a><a href="#" data-en>Bracelets</a>
+    </div>
+    <div>
+      <h5 data-fa>برند</h5><h5 data-en>Brand</h5>
+      <a href="#" data-fa>درباره ما</a><a href="#" data-en>About</a>
+      <a href="#" data-fa>مجله</a><a href="#" data-en>Journal</a>
+      <a href="#" data-fa>تماس با ما</a><a href="#" data-en>Contact</a>
+    </div>
+    <div>
+      <h5 data-fa>ارتباط</h5><h5 data-en>Connect</h5>
+      <a href="#">Instagram</a>
+      <a href="#">Telegram</a>
+      <a href="#" data-fa>واتساپ</a><a href="#" data-en>WhatsApp</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span data-fa>© ۱۴۰۴ سما زرین. تمامی حقوق محفوظ است.</span>
+    <span data-en>© 2026 Sama Zarrin. All rights reserved.</span>
+    <span data-fa>طراحی با ❤ در ایران</span>
+    <span data-en>Designed with ❤ in Iran</span>
+  </div>
+</footer>
 
-                filteredProducts() {
-                    return this.products.filter(p => {
-                        const titleMatch = p.title[this.lang].toLowerCase().includes(this.searchQuery.toLowerCase());
-                        const categoryMatch = this.selectedCategory === 'all' || p.category === this.selectedCategory;
-                        return titleMatch && categoryMatch;
-                    });
-                },
+<script>
+gsap.registerPlugin(ScrollTrigger);
 
-                openDetails(product) {
-                    this.selectedProduct = product;
-                    setTimeout(() => lucide.createIcons(), 50);
-                },
+// Lenis smooth scroll
+const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
+gsap.ticker.lagSmoothing(0);
 
-                closeDetails() {
-                    this.selectedProduct = null;
-                },
+// ---- Loader ----
+const loaderTl = gsap.timeline({
+  onComplete(){
+    document.getElementById('loader').style.display='none';
+    playHero();
+  }
+});
+let pctObj = {v:0};
+const pctEl = document.getElementById('pct');
+loaderTl.to(pctObj, {
+  v:100, duration:1.6, ease:'power2.inOut',
+  onUpdate(){ pctEl.textContent = Math.round(pctObj.v)+'%'; }
+}, 0);
+loaderTl.to('.thread i', {width:'100%', duration:1.6, ease:'power2.inOut'}, 0);
+loaderTl.to('#loader', {autoAlpha:0, duration:.7, ease:'power2.out'}, 1.7);
 
-                openAdminModal() {
-                    this.adminModalOpen = true;
-                    setTimeout(() => lucide.createIcons(), 50);
-                },
+// ---- Hero entrance (runs after loader) ----
+function playHero(){
+  const tl = gsap.timeline();
+  tl.from('.hero .eyebrow span', {yPercent:120, opacity:0, duration:.8, ease:'power3.out'})
+    .from('.hero h1 .word', {yPercent:120, opacity:0, duration:1, ease:'power4.out', stagger:0.04}, '-=0.4')
+    .from('.hero p.sub', {y:20, opacity:0, duration:.9, ease:'power2.out'}, '-=0.5')
+    .from('.hero .cta-row > *', {y:16, opacity:0, duration:.7, stagger:0.1, ease:'power2.out'}, '-=0.5')
+    .from('.scroll-cue', {opacity:0, duration:.8}, '-=0.3');
+}
 
-                tryLogin() {
-                    // Match simulating security credentials inside admin-auth.json
-                    if (this.adminPassword === '+989123456789' || this.adminPassword === 'admin') {
-                        this.adminLoggedIn = true;
-                        this.loginError = false;
-                        setTimeout(() => lucide.createIcons(), 50);
-                    } else {
-                        this.loginError = true;
-                    }
-                },
+// ---- Thread divider draw on scroll ----
+const path = document.getElementById('threadPath');
+const len = path.getTotalLength();
+path.style.strokeDasharray = len;
+path.style.strokeDashoffset = len;
+gsap.to(path, {
+  strokeDashoffset:0, ease:'none',
+  scrollTrigger:{ trigger:'.thread-divider', start:'top 90%', end:'bottom 40%', scrub:1 }
+});
 
-                logout() {
-                    this.adminLoggedIn = false;
-                    this.adminPassword = '';
-                },
+// ---- Header background on scroll ----
+ScrollTrigger.create({
+  start: 60, end: 99999,
+  onUpdate(self){
+    document.getElementById('siteHeader').classList.toggle('scrolled', self.scroll() > 60);
+  }
+});
 
-                updateThemeGold() {
-                    document.documentElement.style.setProperty('--primary-gold', this.themeGold);
-                }
-            }
-        }
+// ---- Section reveals ----
+gsap.utils.toArray('.section-head, .col-card, .feat-card, .craft > *, .review-track, .cta-band h2, .cta-band p, .cta-band button').forEach((el)=>{
+  gsap.from(el, {
+    y:36, opacity:0, duration:1, ease:'power3.out',
+    scrollTrigger:{ trigger:el, start:'top 88%' }
+  });
+});
 
-        // 12. IMMERSIVE COMPONENT ENGINE BOOTSTRAP
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+// ---- Craft visual line draw ----
+gsap.utils.toArray('.craft .visual path').forEach(p=>{
+  const l = p.getTotalLength();
+  p.style.strokeDasharray = l;
+  p.style.strokeDashoffset = l;
+  gsap.to(p, {
+    strokeDashoffset:0, duration:2, ease:'power2.inOut',
+    scrollTrigger:{ trigger:p, start:'top 80%' }
+  });
+});
 
-            // Setup Lenis Smooth Scroll
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true
-            });
+// ---- Language toggle ----
+const body = document.body;
+const langBtn = document.getElementById('langToggle');
+langBtn.addEventListener('click', ()=>{
+  const toEnglish = body.classList.contains('lang-fa');
+  body.classList.toggle('lang-fa', !toEnglish);
+  body.classList.toggle('lang-en', toEnglish);
+  body.setAttribute('dir', toEnglish ? 'ltr' : 'rtl');
+  langBtn.textContent = toEnglish ? 'FA' : 'EN';
+});
 
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-
-            // Loader Screen Dissolve with GSAP
-            window.addEventListener('load', () => {
-                gsap.to('#loader', {
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    duration: 1.2,
-                    ease: 'power3.out',
-                    onComplete: () => {
-                        // Triggers initial cinematic entrance
-                        gsap.from('#home h1', { opacity: 0, y: 50, duration: 1.8, ease: 'power4.out' });
-                    }
-                });
-            });
-
-            // Smooth Header Hide/Show logic on Scroll
-            let lastScroll = 0;
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                const currentScroll = window.pageYOffset;
-                if (currentScroll > 50) {
-                    header.classList.add('luxury-glass', 'py-4');
-                    header.classList.remove('py-6');
-                } else {
-                    header.classList.remove('luxury-glass', 'py-4');
-                    header.classList.add('py-6');
-                }
-                lastScroll = currentScroll;
-            });
-
-            // Magnetic Liquid Cursor Movement logic
-            const cursor = document.getElementById('cursor');
-            const cursorRing = document.getElementById('cursor-ring');
-            document.addEventListener('mousemove', (e) => {
-                gsap.to(cursor, { x: e.clientX - 4, y: e.clientY - 4, duration: 0.1 });
-                gsap.to(cursorRing, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.3 });
-            });
-
-            // Interactive Golden Particles Backdrop Engine
-            const canvas = document.getElementById('particleCanvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-
-            const resize = () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            };
-            window.addEventListener('resize', resize);
-            resize();
-
-            class GoldParticle {
-                constructor() {
-                    this.reset();
-                    this.y = Math.random() * canvas.height;
-                }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = canvas.height + 10;
-                    this.size = Math.random() * 1.8 + 0.3;
-                    this.speedY = -(Math.random() * 0.4 + 0.1);
-                    this.speedX = Math.random() * 0.2 - 0.1;
-                    this.alpha = Math.random() * 0.5 + 0.2;
-                }
-                update() {
-                    this.y += this.speedY;
-                    this.x += this.speedX;
-                    if (this.y < -10) this.reset();
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = '#D4AF37';
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.shadowBlur = 0; // Reset blur for optimal performance
-                }
-            }
-
-            for(let i=0; i < 75; i++) {
-                particles.push(new GoldParticle());
-            }
-
-            function loop() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
-                requestAnimationFrame(loop);
-            }
-            loop();
-        });
-    </script>
+// ---- Magnetic gold buttons ----
+document.querySelectorAll('.btn-gold, .btn-ghost').forEach(btn=>{
+  btn.addEventListener('mousemove', (e)=>{
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2;
+    const y = e.clientY - r.top - r.height/2;
+    gsap.to(btn, {x:x*0.15, y:y*0.4, duration:.4, ease:'power2.out'});
+  });
+  btn.addEventListener('mouseleave', ()=>{
+    gsap.to(btn, {x:0, y:0, duration:.5, ease:'elastic.out(1,0.4)'});
+  });
+});
+</script>
 </body>
 </html>
